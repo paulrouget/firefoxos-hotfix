@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# This script pull omni.ja from a B2G phone and repackage it.
+# This script pulls omni.ja from a B2G phone and repackages it.
 # The "Custom part" section in this script can be used to
 # overwrite files.
 #
@@ -27,8 +27,9 @@ unzip -q ../omni.ja.orig || echo ignoring zip error
 
 # Custom part
 echo "Files udpate"
-cp ~/mozilla/src/toolkit/devtools/server/actors/webconsole.js modules/devtools/server/actors/
-cp ~/mozilla/src/toolkit/devtools/webconsole/utils.js modules/devtools/toolkit/webconsole/
+# overwrite the files you want. For example:
+# cp ~/mozilla/src/toolkit/devtools/server/actors/webconsole.js modules/devtools/server/actors/
+# cp ~/mozilla/src/toolkit/devtools/webconsole/utils.js modules/devtools/toolkit/webconsole/
 
 # End custom part
 
