@@ -1,5 +1,12 @@
 #!/bin/sh
 
+# This script pull omni.ja from a B2G phone and repackage it.
+# The "Custom part" section in this script can be used to
+# overwrite files.
+#
+# Put this file in an empty directory, change the "Custom part"
+# section, plug your phone, and run the script.
+
 set -o errexit
 
 if [ ! -e "omni.ja.orig" ]; then
@@ -7,7 +14,7 @@ if [ ! -e "omni.ja.orig" ]; then
   adb pull /system/b2g/omni.ja omni.ja.orig
 fi
 
-echo "Cleanup tmp/ directory"
+echo "Cleanup ./tmp/ directory"
 rm -rf tmp
 mkdir tmp
 cd tmp
@@ -20,8 +27,8 @@ unzip -q ../omni.ja.orig || echo ignoring zip error
 
 # Custom part
 echo "Files udpate"
-cp ~/mozilla/src/toolkit/devtools/server/actors/webapps.js modules/devtools/server/actors/
-cp ../Webapps.jsm modules/
+cp ~/mozilla/src/toolkit/devtools/server/actors/webconsole.js modules/devtools/server/actors/
+cp ~/mozilla/src/toolkit/devtools/webconsole/utils.js modules/devtools/toolkit/webconsole/
 
 # End custom part
 
@@ -40,4 +47,4 @@ echo "Remount ro"
 adb shell mount -o ro,remount /system
 
 echo "Starting B2G..."
-exec adb shell /system/bin/b2g.sh
+exec adb shell start b2g
